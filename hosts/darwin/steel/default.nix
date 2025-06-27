@@ -3,8 +3,12 @@
     ../common.nix
   ];
   
-  # Steel-specific configuration
-  environment.systemPackages = [
-    pkgs.code-cursor
-  ];
+  # User configuration - REQUIRED for Home Manager integration
+  users.users.asher = {
+    name = "asher";
+    home = "/Users/asher";
+  };
+
+  # System primary user for Homebrew
+  system.primaryUser = "asher";
 } 

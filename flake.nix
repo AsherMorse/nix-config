@@ -17,7 +17,7 @@
       modules = [
         ./hosts/darwin/steel
         
-        # Add Home Manager module
+        # Home Manager integration
         home-manager.darwinModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
