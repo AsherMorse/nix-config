@@ -19,6 +19,24 @@
     };
   };
 
+  # SSH configuration
+  programs.ssh = {
+    enable = true;
+    addKeysToAgent = "yes";
+    
+    extraConfig = ''
+      VisualHostKey yes
+    '';
+    
+    matchBlocks = {
+      "github.com" = {
+        hostname = "github.com";
+        user = "git";
+        identityFile = "~/.ssh/ashermorse@icloud.com";
+      };
+    };
+  };
+
   # Shell configuration
   programs.zsh.enable = true;
 
