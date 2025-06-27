@@ -1,4 +1,6 @@
-{ pkgs, lib, config, ... }: {
+{ pkgs, lib, config, ... }: 
+
+{
   imports = [
     ../common.nix
     ../../../modules/darwin/homebrew.nix

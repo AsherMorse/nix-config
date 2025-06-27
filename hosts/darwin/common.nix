@@ -1,4 +1,6 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }: 
+
+{
   imports = [
     ../common/core.nix
     ../../modules/darwin/dock.nix
@@ -9,15 +11,6 @@
   nixpkgs.hostPlatform = "aarch64-darwin";
 
   # Enable modules
-  modules.dock = {
-    enable = true;
-    orientation = "bottom";
-    tilesize = 48;
-    show-recents = true;
-  };
-
-  modules.security = {
-    enable = true;
-    touchIdAuth = true;
-  };
+  modules.dock.enable = true;
+  modules.security.enable = true;
 }

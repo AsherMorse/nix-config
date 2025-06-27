@@ -1,4 +1,6 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }: 
+
+{
   # Core user configuration
   home.packages = with pkgs; [
     nano

@@ -13,7 +13,7 @@ with lib;
     
     tilesize = mkOption {
       type = types.int;
-      default = 48;
+      default = 64;
     };
     
     autohide = mkOption {
@@ -23,7 +23,7 @@ with lib;
     
     show-recents = mkOption {
       type = types.bool;
-      default = false;
+      default = true;
     };
   };
 
