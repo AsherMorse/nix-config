@@ -25,12 +25,15 @@
   '';
 
   # Homebrew configuration
+  system.primaryUser = "asher";
+
   homebrew = {
     enable = true;
     
     # Homebrew casks
     casks = [
       "pearcleaner"
+      "cursor"
     ];
 
     # Homebrew configuration options
@@ -47,6 +50,21 @@
     home = "/Users/asher";
   };
 
-  # System primary user for Homebrew
-  # system.primaryUser = "asher";
+  system.defaults.dock = {
+    autohide = true;
+    autohide-delay = 0.0;
+    mru-spaces = false;
+    showhidden = true;
+    tilesize = 64;
+
+    persistent-apps = [
+      "/Applications/Pearcleaner.app"
+    ];
+  };
+
+  system.defaults.CustomUserPreferences = {
+    "com.apple.dock" = {
+      "size-immutable" = true;
+    };
+  };
 } 

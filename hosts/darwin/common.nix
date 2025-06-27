@@ -3,6 +3,15 @@
     ../common/core.nix
   ];
 
-  # Darwin-specific configuration
-  # This file kept as placeholder for future multi-device setup
+  system.defaults.dock = {
+    autohide = true;
+    autohide-delay = 0.0;
+    orientation = "left";
+    tilesize = 36;
+    magnification = false;
+    mineffect = "scale";
+    show-process-indicators = true;
+    show-recents = false;
+    mru-spaces = false;
+  };
 }
