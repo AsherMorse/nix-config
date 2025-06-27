@@ -1,21 +1,40 @@
 { pkgs, lib, config, ... }: {
-  # Nix configuration
-  nix.settings.experimental-features = "nix-command flakes";
-  
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-  
-  # System packages moved to Home Manager (user-specific)
-  environment.systemPackages = [ ];
+  imports = [
+    ../common.nix
+  ];
 
-  # Darwin-specific settings
-  nixpkgs.hostPlatform = "aarch64-darwin";
-  
-  # Used for backwards compatibility
+  # Machine-specific configuration
   system.stateVersion = 6;
+  system.primaryUser = "asher";
 
-  # Copy applications to /Applications/Nix Apps instead of symlinking
-  # This makes them show up in Spotlight and Launchpad
+  # User configuration
+  users.users.asher = {
+    name = "asher";
+    home = "/Users/asher";
+  };
+
+  # Package management
+  homebrew = {
+    enable = true;
+    casks = [
+      "pearcleaner"
+      "cursor"
+    ];
+    onActivation = {
+      autoUpdate = false;
+      upgrade = false;
+      cleanup = "zap";
+    };
+  };
+
+  # Machine-specific dock apps
+  system.defaults.dock = {
+    persistent-apps = [
+      "/Applications/Pearcleaner.app"
+    ];
+  };
+
+  # Application handling
   system.activationScripts.applications.text = lib.mkForce ''
     echo "Setting up /Applications/Nix Apps..." >&2
     appsSrc="${config.system.build.applications}/Applications/"
@@ -23,48 +42,4 @@
     mkdir -p "$baseDir"
     ${pkgs.rsync}/bin/rsync --archive --checksum --chmod=-w --copy-unsafe-links --delete "$appsSrc" "$baseDir"
   '';
-
-  # Homebrew configuration
-  system.primaryUser = "asher";
-
-  homebrew = {
-    enable = true;
-    
-    # Homebrew casks
-    casks = [
-      "pearcleaner"
-      "cursor"
-    ];
-
-    # Homebrew configuration options
-    onActivation = {
-      autoUpdate = false;       # Don't auto-update during darwin-rebuild
-      upgrade = false;          # Don't auto-upgrade during darwin-rebuild
-      cleanup = "zap";          # Remove unlisted formulae/casks aggressively
-    };
-  };
-  
-  # User configuration
-  users.users.asher = {
-    name = "asher";
-    home = "/Users/asher";
-  };
-
-  system.defaults.dock = {
-    autohide = true;
-    autohide-delay = 0.0;
-    mru-spaces = false;
-    showhidden = true;
-    tilesize = 64;
-
-    persistent-apps = [
-      "/Applications/Pearcleaner.app"
-    ];
-  };
-
-  system.defaults.CustomUserPreferences = {
-    "com.apple.dock" = {
-      "size-immutable" = true;
-    };
-  };
 } 

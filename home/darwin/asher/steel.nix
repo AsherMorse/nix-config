@@ -1,45 +1,14 @@
 { config, pkgs, ... }: {
-  # Universal user settings - works on both macOS and NixOS
+  imports = [
+    ../common.nix
+  ];
+
+  # Machine-specific user configuration
   home.username = "asher";
   home.stateVersion = "25.11";
 
-  # Universal packages
+  # Machine-specific packages
   home.packages = with pkgs; [
-    nano
+    neofetch
   ];
-
-  # Git configuration
-  programs.git = {
-    enable = true;
-    userName = "ashermorse";
-    userEmail = "ashermorse@icloud.com";
-    
-    extraConfig = {
-      core.editor = "nano";
-    };
-  };
-
-  # SSH configuration
-  programs.ssh = {
-    enable = true;
-    addKeysToAgent = "yes";
-    
-    extraConfig = ''
-      VisualHostKey yes
-    '';
-    
-    matchBlocks = {
-      "github.com" = {
-        hostname = "github.com";
-        user = "git";
-        identityFile = "~/.ssh/github";
-      };
-    };
-  };
-
-  # Shell configuration
-  programs.zsh.enable = true;
-
-  # Let Home Manager install and manage itself
-  programs.home-manager.enable = true;
 }

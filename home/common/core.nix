@@ -1,4 +1,9 @@
 { config, pkgs, ... }: {
-  # Core configuration
-  # This file kept as placeholder for future multi-device setup
+  # Core user configuration
+  home.packages = with pkgs; [
+    nano
+  ];
+
+  programs.home-manager.enable = true;
+  programs.zsh.enable = true;
 } 

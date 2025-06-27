@@ -3,6 +3,28 @@
     ../common/core.nix
   ];
 
-  # Darwin-specific configuration
-  # This file kept as placeholder for future multi-device setup
+  # Development configuration
+  programs.git = {
+    enable = true;
+    userName = "ashermorse";
+    userEmail = "ashermorse@icloud.com";
+    extraConfig = {
+      core.editor = "nano";
+    };
+  };
+
+  programs.ssh = {
+    enable = true;
+    addKeysToAgent = "yes";
+    extraConfig = ''
+      VisualHostKey yes
+    '';
+    matchBlocks = {
+      "github.com" = {
+        hostname = "github.com";
+        user = "git";
+        identityFile = "~/.ssh/github";
+      };
+    };
+  };
 } 
