@@ -1,29 +1,23 @@
 { config, pkgs, ... }: {
   imports = [
     ../common/core.nix
+    ../../modules/darwin/dock.nix
+    ../../modules/darwin/security.nix
   ];
 
   # Darwin-specific configuration
   nixpkgs.hostPlatform = "aarch64-darwin";
-  security.pam.services.sudo_local.touchIdAuth = true;
 
-  # System defaults
-  system.defaults.dock = {
-    autohide = true;
-    autohide-delay = 0.0;
-    magnification = false;
-    mineffect = "scale";
-    mru-spaces = false;
+  # Enable modules
+  modules.dock = {
+    enable = true;
     orientation = "bottom";
-    show-process-indicators = true;
-    show-recents = true;
-    showhidden = true;
     tilesize = 48;
+    show-recents = true;
   };
 
-  system.defaults.CustomUserPreferences = {
-    "com.apple.dock" = {
-      "size-immutable" = true;
-    };
+  modules.security = {
+    enable = true;
+    touchIdAuth = true;
   };
 }

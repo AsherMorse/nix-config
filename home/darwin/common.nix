@@ -1,30 +1,20 @@
 { config, pkgs, ... }: {
   imports = [
     ../common/core.nix
+    ../../modules/home/development.nix
   ];
 
   # Development configuration
-  programs.git = {
+  modules.development = {
     enable = true;
-    userName = "ashermorse";
-    userEmail = "ashermorse@icloud.com";
-    extraConfig = {
-      core.editor = "nano";
+    git = {
+      userName = "ashermorse";
+      userEmail = "ashermorse@icloud.com";
+      editor = "nano";
     };
-  };
-
-  programs.ssh = {
-    enable = true;
-    addKeysToAgent = "yes";
-    extraConfig = ''
-      VisualHostKey yes
-    '';
-    matchBlocks = {
-      "github.com" = {
-        hostname = "github.com";
-        user = "git";
-        identityFile = "~/.ssh/github";
-      };
+    ssh = {
+      enable = true;
+      githubKeyPath = "~/.ssh/github";
     };
   };
 } 

@@ -1,6 +1,7 @@
 { pkgs, lib, config, ... }: {
   imports = [
     ../common.nix
+    ../../../modules/darwin/homebrew.nix
   ];
 
   # Machine-specific configuration
@@ -14,17 +15,13 @@
   };
 
   # Package management
-  homebrew = {
+  modules.homebrew = {
     enable = true;
     casks = [
       "pearcleaner"
       "cursor"
     ];
-    onActivation = {
-      autoUpdate = false;
-      upgrade = false;
-      cleanup = "zap";
-    };
+    cleanup = "zap";
   };
 
   # Machine-specific dock apps
