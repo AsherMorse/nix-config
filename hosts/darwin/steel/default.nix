@@ -20,8 +20,10 @@
   modules.homebrew = {
     enable = true;
     casks = [
-      "pearcleaner"
+      "aldente"
       "cursor"
+      "pearcleaner"
+      "steam"
     ];
     cleanup = "zap";
   };
