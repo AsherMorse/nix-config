@@ -1,7 +1,9 @@
 { config, lib, ... }: 
 
 with lib;
-
+let
+  cfg = config.modules.homebrew;
+in
 {
   options.modules.homebrew = {
     enable = mkEnableOption "homebrew configuration";
@@ -9,6 +11,12 @@ with lib;
     casks = mkOption {
       type = types.listOf types.str;
       default = [];
+    };
+    
+    casksWithNoQuarantine = mkOption {
+      type = types.listOf types.str;
+      default = [];
+      description = "Casks to install with the --no-quarantine flag.";
     };
     
     brews = mkOption {
@@ -22,10 +30,14 @@ with lib;
     };
   };
 
-  config = mkIf config.modules.homebrew.enable {
+  config = mkIf cfg.enable {
     homebrew = {
       enable = true;
-      inherit (config.modules.homebrew) casks brews;
+      brews = cfg.brews;
+      casks = cfg.casks ++ (map (name: {
+        inherit name;
+        args = { no_quarantine = true; };
+      }) cfg.casksWithNoQuarantine);
       onActivation = {
         autoUpdate = false;
         upgrade = false;

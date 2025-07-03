@@ -25,6 +25,9 @@
       "pearcleaner"
       "steam"
     ];
+    casksWithNoQuarantine = [
+      "librewolf"
+    ];
     cleanup = "zap";
   };
 
@@ -33,6 +36,10 @@
     persistent-apps = [
       "/Applications/Pearcleaner.app"
     ];
+    wvous-tl-corner = 1;
+    wvous-tr-corner = 1;
+    wvous-bl-corner = 1;
+    wvous-br-corner = 1;
   };
 
   # Application handling
